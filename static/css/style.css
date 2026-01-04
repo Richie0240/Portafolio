@@ -218,6 +218,23 @@ a:hover {
   border-color: rgba(124, 58, 237, 0.4);
 }
 
+.contact-card {
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: grid;
+  gap: 8px;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+
 .projects-section {
   display: grid;
   gap: 16px;
@@ -247,6 +264,42 @@ footer {
   text-align: center;
   color: var(--muted);
   margin-top: 24px;
+}
+
+.editable-active {
+  outline: 1px dashed rgba(124, 58, 237, 0.6);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+.edit-toolbar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(96%, 820px);
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: rgba(11, 18, 33, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  z-index: 10;
+}
+
+.subtext {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 @media (max-width: 900px) {
