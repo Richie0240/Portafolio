@@ -18,22 +18,51 @@
       <section class="hero">
         <div>
           <div class="badge">{{ profile.year }} · {{ profile.university }}</div>
-          <h1>¡Hola! Soy <span class="highlight">{{ profile.name }}</span></h1>
-          <p>{{ profile.bio }}</p>
+          <h1>
+            ¡Hola! Soy
+            <span class="highlight secret-trigger editable" data-edit-key="profile.name">{{ profile.name }}</span>
+          </h1>
+          <p class="editable" data-edit-key="profile.bio">{{ profile.bio }}</p>
           <div class="pill-row">
-            <span class="pill"><i class="fa-solid fa-location-dot"></i> {{ profile.location }}</span>
-            <span class="pill"><i class="fa-solid fa-user-graduate"></i> {{ profile.role }}</span>
+            <span class="pill">
+              <i class="fa-solid fa-location-dot"></i>
+              <span class="editable" data-edit-key="profile.location">{{ profile.location }}</span>
+            </span>
+            <span class="pill">
+              <i class="fa-solid fa-user-graduate"></i>
+              <span class="editable" data-edit-key="profile.role">{{ profile.role }}</span>
+            </span>
           </div>
           <div class="actions">
             <a class="btn" href="#proyectos">Ver proyectos</a>
-            <a class="btn secondary" href="mailto:ricardo@correo.com">Contáctame</a>
+            <button class="btn secondary" id="contactToggle" type="button">Contáctame</button>
+          </div>
+          <div class="contact-card" id="contactCard" hidden>
+            <div class="contact-row">
+              <i class="fa-solid fa-envelope"></i>
+              <span class="editable" data-edit-key="contact.email">ricardo@correo.com</span>
+            </div>
+            <div class="contact-row">
+              <i class="fa-solid fa-phone"></i>
+              <span class="editable" data-edit-key="contact.phone">+506 8888-8888</span>
+            </div>
+            <div class="contact-row">
+              <i class="fa-solid fa-location-dot"></i>
+              <span class="editable" data-edit-key="contact.location">San José, Costa Rica</span>
+            </div>
           </div>
         </div>
         <div>
           <div class="section-title"><span></span>Habilidades</div>
           <div class="card-grid">
             {% for skill in skills %}
-            <div class="card" style="padding: 12px 14px; text-align: center">{{ skill }}</div>
+            <div
+              class="card editable"
+              style="padding: 12px 14px; text-align: center"
+              data-edit-key="skill-{{ loop.index0 }}"
+            >
+              {{ skill }}
+            </div>
             {% endfor %}
           </div>
 
@@ -55,11 +84,13 @@
           {% for project in spotlight_projects %}
           <article class="card">
             <div class="badge" style="margin-bottom: 8px">Proyecto estrella</div>
-            <h3>{{ project.name }}</h3>
-            <p>{{ project.description }}</p>
+            <h3 class="editable" data-edit-key="project-{{ loop.index0 }}-name">{{ project.name }}</h3>
+            <p class="editable" data-edit-key="project-{{ loop.index0 }}-description">{{ project.description }}</p>
             <div class="pill-row">
               {% for tech in project.technologies %}
-              <span class="tag"><i class="fa-solid fa-circle"></i> {{ tech }}</span>
+              <span class="tag editable" data-edit-key="project-{{ loop.parent.index0 }}-tech-{{ loop.index0 }}">
+                <i class="fa-solid fa-circle"></i> {{ tech }}
+              </span>
               {% endfor %}
             </div>
             <div class="actions" style="margin-top: 12px">
@@ -74,11 +105,11 @@
         <div class="card-grid">
           {% for project in other_projects %}
           <article class="card">
-            <h3>{{ project.name }}</h3>
-            <p>{{ project.description }}</p>
+            <h3 class="editable" data-edit-key="other-project-{{ loop.index0 }}-name">{{ project.name }}</h3>
+            <p class="editable" data-edit-key="other-project-{{ loop.index0 }}-description">{{ project.description }}</p>
             <div class="pill-row">
               {% for tech in project.technologies %}
-              <span class="tag">{{ tech }}</span>
+              <span class="tag editable" data-edit-key="other-project-{{ loop.parent.index0 }}-tech-{{ loop.index0 }}">{{ tech }}</span>
               {% endfor %}
             </div>
             <div class="actions" style="margin-top: 12px">
@@ -100,5 +131,18 @@
 
       <footer>Construido con Flask & mucho cariño ✨</footer>
     </div>
+
+    <div class="edit-toolbar" id="editToolbar" hidden>
+      <div>
+        <strong>Modo edición activo</strong>
+        <span class="subtext">Guarda para recordar los cambios en este navegador.</span>
+      </div>
+      <div class="toolbar-actions">
+        <button class="btn secondary" id="cancelEdit" type="button">Salir</button>
+        <button class="btn" id="saveEdits" type="button">Guardar</button>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
   </body>
 </html>
